@@ -1,0 +1,11 @@
+FROM docker.io/library/alpine:edge
+RUN adduser -u 1000 -HDs /bin/false cryptoguy && \
+    apk add libressl \
+            libressl3.8-libcrypto \
+            libressl3.8-libssl \
+            libressl3.8-libtls \
+            ca-certificates && \
+    ln -s /usr/bin/libressl-openssl /usr/bin/openssl
+WORKDIR /workdir
+USER cryptoguy
+ENTRYPOINT [ "openssl" ]
